@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlamourWishlist", "GlamourWishlist\GlamourWishlist.csproj", "{2082CB2C-9F05-423A-BF71-8451EC192DC5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2082CB2C-9F05-423A-BF71-8451EC192DC5}.Debug|x64.ActiveCfg = Debug|x64
+		{2082CB2C-9F05-423A-BF71-8451EC192DC5}.Debug|x64.Build.0 = Debug|x64
+		{2082CB2C-9F05-423A-BF71-8451EC192DC5}.Release|x64.ActiveCfg = Release|x64
+		{2082CB2C-9F05-423A-BF71-8451EC192DC5}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CC25E732-2189-486A-958F-5A568BF0AF31}
+	EndGlobalSection
+EndGlobal

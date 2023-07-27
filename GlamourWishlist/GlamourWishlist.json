@@ -1,0 +1,12 @@
+{
+  "Author": "DragonFlyy",
+  "Name": "GlamourWishlist",
+  "Punchline": "Create wish lists of items you want to glamour",
+  "Description": "Create and manage lists of items that you want to save for glamouring later.",
+  "InternalName": "GlamourWishlist",
+  "ApplicableVersion": "any",
+  "Tags": [
+    "glamour",
+    "wish list"
+  ]
+}
