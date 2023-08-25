@@ -1,4 +1,5 @@
 ﻿using Dalamud.Interface;
+using Dalamud.Interface.Raii;
 using Dalamud.Interface.Windowing;
 using FFXIVClientStructs.FFXIV.Client.UI.Info;
 using GlamourWishlist.Models;
@@ -23,7 +24,7 @@ public class WishlistWindow : Window, IDisposable
     private Wishlist SelectedWishlist;
 
     public WishlistWindow(Plugin plugin) : base(
-        "Glamour Wish lists",
+        "Glamour Wishlists",
         ImGuiWindowFlags.NoScrollbar |
         ImGuiWindowFlags.NoScrollWithMouse |
         ImGuiWindowFlags.NoDocking)
@@ -261,36 +262,44 @@ public class WishlistWindow : Window, IDisposable
         {
             
             ImGui.BeginChild("selectedItemsScroll", new Vector2(0, Plugin.Config.ItemSeparatorSize), true);
-            foreach (var sItem in ActiveItemDisplay.Where(x => SelectedWishlist.ItemIds.Contains(x.RowId)).ToList())
+            ImGuiListClipperPtr ActiveClipper;
+            unsafe { ActiveClipper = new(ImGuiNative.ImGuiListClipper_ImGuiListClipper()); }
+            ActiveClipper.Begin(ActiveItemDisplay.Count);
+            while (ActiveClipper.Step())
             {
-                ImGui.BeginGroup();
-
-                ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 7);
-                ImGui.PushFont(UiBuilder.IconFont);
-                ImGui.Text($"{(char)FontAwesomeIcon.Heart}");
-                ImGui.PopFont();
-
-
-                ImGui.SameLine();
-                ImGui.SetCursorPosY(ImGui.GetCursorPosY() - 7);
-                Service.DrawService.DrawIcon(sItem.Icon, new Vector2(32, 32));
-                
-                ImGui.SameLine();
-                ImGui.PushStyleColor(ImGuiCol.Text, Helper.Rarity(sItem.Rarity));
-                ImGui.TextUnformatted($"{sItem.Name}");
-                ImGui.PopStyleColor();
-
-                ImGui.EndGroup();
-                if(ImGui.IsItemClicked())
+                for (int i = ActiveClipper.DisplayStart; i < ActiveClipper.DisplayEnd; i++)
                 {
-                    Service.WishlistService.RemoveItem(sItem.RowId, SelectedWishlist);
-                }
-                if(ImGui.IsItemHovered())
-                {
-                    ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
+                    var sItem = ActiveItemDisplay[i];
+
+                    ImGui.BeginGroup();
+
+                    ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 7);
+                    ImGui.PushFont(UiBuilder.IconFont);
+                    ImGui.Text($"{(char)FontAwesomeIcon.Heart}");
+                    ImGui.PopFont();
+
+
+                    ImGui.SameLine();
+                    ImGui.SetCursorPosY(ImGui.GetCursorPosY() - 7);
+                    Service.DrawService.DrawIcon(sItem.Icon, new Vector2(32, 32));
+
+                    ImGui.SameLine();
+                    ImGui.PushStyleColor(ImGuiCol.Text, Helper.Rarity(sItem.Rarity));
+                    ImGui.TextUnformatted($"{sItem.Name}");
+                    ImGui.PopStyleColor();
+
+                    ImGui.EndGroup();
+                    if (ImGui.IsItemClicked())
+                    {
+                        Service.WishlistService.RemoveItem(sItem.RowId, SelectedWishlist);
+                    }
+                    if (ImGui.IsItemHovered())
+                    {
+                        ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
+                    }
                 }
             }
-            
+
             ImGui.EndChild();
             ImGui.Button("##spacer", new Vector2(windowSize.X, 10));
             if(ImGui.IsItemHovered())
@@ -316,40 +325,46 @@ public class WishlistWindow : Window, IDisposable
         }
 
         ImGui.BeginChild("unselectedItemScroll", new Vector2(0, 0), true);
-        
-        
-        foreach (var uItem in InactiveItemDisplay.Where(x=> !SelectedWishlist.ItemIds.Contains(x.RowId)).ToList())
+
+
+        ImGuiListClipperPtr InActiveClipper;
+        unsafe { InActiveClipper = new(ImGuiNative.ImGuiListClipper_ImGuiListClipper()); }
+        InActiveClipper.Begin(InactiveItemDisplay.Count);
+        while (InActiveClipper.Step())
         {
-            ImGui.BeginGroup();
-
-            ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 7);
-            ImGui.PushFont(UiBuilder.IconFont);
-            ImGui.PushStyleColor(ImGuiCol.Text, 0xFF000000);
-            ImGui.Text($"{(char)FontAwesomeIcon.Heart}");
-            ImGui.PopStyleColor();
-            ImGui.PopFont();
-
-
-            ImGui.SameLine();
-            ImGui.SetCursorPosY(ImGui.GetCursorPosY() - 7);
-            Service.DrawService.DrawIcon(uItem.Icon, new Vector2(32, 32));
-
-            ImGui.SameLine();
-            ImGui.PushStyleColor(ImGuiCol.Text, Helper.Rarity(uItem.Rarity));
-            ImGui.TextUnformatted($"{uItem.Name}");
-            ImGui.PopStyleColor();
-
-            ImGui.EndGroup();
-            if (ImGui.IsItemClicked())
+            for (int i = InActiveClipper.DisplayStart; i < InActiveClipper.DisplayEnd; i++)
             {
-                Service.WishlistService.AddItem(uItem.RowId, SelectedWishlist);
-            }
-            if (ImGui.IsItemHovered())
-            {
-                ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
+                var uItem = InactiveItemDisplay[i];
+                ImGui.BeginGroup();
+
+                ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 7);
+                ImGui.PushFont(UiBuilder.IconFont);
+                ImGui.PushStyleColor(ImGuiCol.Text, 0xFF000000);
+                ImGui.Text($"{(char)FontAwesomeIcon.Heart}");
+                ImGui.PopStyleColor();
+                ImGui.PopFont();
+
+
+                ImGui.SameLine();
+                ImGui.SetCursorPosY(ImGui.GetCursorPosY() - 7);
+                Service.DrawService.DrawIcon(uItem.Icon, new Vector2(32, 32));
+
+                ImGui.SameLine();
+                ImGui.PushStyleColor(ImGuiCol.Text, Helper.Rarity(uItem.Rarity));
+                ImGui.TextUnformatted($"{uItem.Name}");
+                ImGui.PopStyleColor();
+
+                ImGui.EndGroup();
+                if (ImGui.IsItemClicked())
+                {
+                    Service.WishlistService.AddItem(uItem.RowId, SelectedWishlist);
+                }
+                if (ImGui.IsItemHovered())
+                {
+                    ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
+                }
             }
         }
-        
         ImGui.EndChild();
         ImGui.PopStyleVar();
 
@@ -456,8 +471,8 @@ public class WishlistWindow : Window, IDisposable
             if (ImGui.Button("Yes", new Vector2(120, 0)))
             {
                 Service.WishlistService.DeleteWishlist(SelectedWishlist);
-                SelectedWishlist = null;
                 ImGui.CloseCurrentPopup();
+                SelectedWishlist = null;
             }
             ImGui.SameLine();
             if (ImGui.Button("No", new Vector2(120, 0)))

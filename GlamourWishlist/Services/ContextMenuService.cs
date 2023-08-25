@@ -69,7 +69,7 @@ public class ContextMenuService
         if (gameObjectItemId != null)
         {
             GameObjectContextMenuItem menuItem =
-                new(new SeString(new TextPayload($"{(char)0xe03b} Add to wish list")), x => AddItemToWishlist(gameObjectItemId.Value), false);
+                new(new SeString(new TextPayload($"{(char)0xe03b} Add to wishlist")), x => AddItemToWishlist(gameObjectItemId.Value), false);
             args.AddCustomItem(menuItem);
         }
     }
@@ -87,7 +87,7 @@ public class ContextMenuService
                 if(item.IsGlamourous)
                 {
                     InventoryContextMenuItem menuItem =
-                        new(new SeString(new TextPayload($"{(char)0xe03b} Add to wish list")), x => AddItemToWishlist(x.ItemId), false); 
+                        new(new SeString(new TextPayload($"{(char)0xe03b} Add to wishlist")), x => AddItemToWishlist(x.ItemId), false); 
                     args.AddCustomItem(menuItem);
                 }
             }

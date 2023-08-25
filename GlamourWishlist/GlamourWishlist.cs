@@ -83,9 +83,9 @@ public sealed class Plugin : IDalamudPlugin
     }
 
     [Command("/pwl")]
-    [HelpMessage("Open main wish list window")]
+    [HelpMessage("Open main wishlist window")]
     public void WishlistCommand(string command, string arg)
     {
-        MainWindow.IsOpen = true;
+        MainWindow.Toggle();
     }
 }
