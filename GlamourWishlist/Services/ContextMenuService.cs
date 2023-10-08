@@ -21,7 +21,7 @@ public class ContextMenuService
     public ContextMenuService(Plugin plugin) 
     {
         Plugin = plugin;
-        contextMenu = new();
+        contextMenu = new DalamudContextMenu(Service.Interface);
         contextMenu.OnOpenInventoryContextMenu += OpenInventoryContextMenu;
         contextMenu.OnOpenGameObjectContextMenu += OpenObjectContextMenu;
     }
@@ -105,7 +105,7 @@ public class ContextMenuService
         }
     }
 
-    private uint CheckGameObjectItem(uint itemId)
+    private static uint CheckGameObjectItem(uint itemId)
     {
         if (itemId > 500000)
             itemId -= 500000;

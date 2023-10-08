@@ -1,5 +1,5 @@
 ﻿using Dalamud.Interface;
-using Dalamud.Interface.Raii;
+//using Dalamud.Interface.Raii;
 using Dalamud.Interface.Windowing;
 using FFXIVClientStructs.FFXIV.Client.UI.Info;
 using GlamourWishlist.Models;
@@ -16,11 +16,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GlamourWishlist.Windows;
-public class WishlistWindow : Window, IDisposable
+public sealed class WishlistWindow : Window, IDisposable
 {
     private readonly Plugin Plugin;
 
-    private ImGuiWindowFlags DefaultFlags;
+    
     private Wishlist SelectedWishlist;
 
     public WishlistWindow(Plugin plugin) : base(
@@ -36,7 +36,6 @@ public class WishlistWindow : Window, IDisposable
         };
 
         this.Plugin = plugin;
-        DefaultFlags = this.Flags;
     }
 
     public void Dispose()

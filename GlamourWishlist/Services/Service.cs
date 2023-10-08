@@ -6,6 +6,7 @@ using Dalamud.Game.Gui;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.IoC;
 using Dalamud.Plugin;
+using Dalamud.Plugin.Services;
 using Lumina.Excel.GeneratedSheets;
 using System;
 using System.Collections.Generic;
@@ -23,13 +24,14 @@ public class Service
         _pluginInterface.Create<Service>();
     }
 
-    [PluginService][RequiredVersion("1.0")] public static ChatGui ChatGui { get; private set; } = null;
-    [PluginService][RequiredVersion("1.0")] public static CommandManager CommandManager { get; private set; } = null;
-    [PluginService][RequiredVersion("1.0")] public static DataManager DataManager { get; private set; } = null;
-    [PluginService][RequiredVersion("1.0")] public static Framework Framework { get; private set; } = null;
+    [PluginService][RequiredVersion("1.0")] public static IChatGui ChatGui { get; private set; } = null;
+    [PluginService][RequiredVersion("1.0")] public static ICommandManager CommandManager { get; private set; } = null;
+    [PluginService][RequiredVersion("1.0")] public static IDataManager DataManager { get; private set; } = null;
+    [PluginService][RequiredVersion("1.0")] public static ITextureProvider TextureProvider { get; private set; } = null;
+    [PluginService][RequiredVersion("1.0")] public static IFramework Framework { get; private set; } = null;
     [PluginService][RequiredVersion("1.0")] public static DalamudPluginInterface Interface { get; private set; } = null;
-    [PluginService][RequiredVersion("1.0")] public static ClientState ClientState { get; private set; } = null;
-    [PluginService][RequiredVersion("1.0")] public static GameGui GameGui { get; private set; } = null;
+    [PluginService][RequiredVersion("1.0")] public static IClientState ClientState { get; private set; } = null;
+    [PluginService][RequiredVersion("1.0")] public static IGameGui GameGui { get; private set; } = null;
     public static DrawService DrawService { get; set; }
     public static WishlistService WishlistService { get; set; }
     public static ContextMenuService ContextMenuService { get; set; }

@@ -1,4 +1,5 @@
-﻿using Dalamud.Utility;
+﻿using Dalamud.Interface.Internal;
+using Dalamud.Utility;
 using ImGuiNET;
 using ImGuiScene;
 using System;
@@ -12,7 +13,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace GlamourWishlist.Services;
 public class DrawService
 {
-    public readonly Dictionary<ushort, TextureWrap> textureDictionary;
+    public readonly Dictionary<ushort, IDalamudTextureWrap> textureDictionary;
 
     public DrawService()
     {
@@ -49,8 +50,8 @@ public class DrawService
                 Task.Run(() => {
                     try
                     {
-                        var iconTex = Service.DataManager.GetIcon(icon);
-                        var tex = Service.Interface.UiBuilder.LoadImageRaw(iconTex.GetRgbaImageData(), iconTex.Header.Width, iconTex.Header.Height, 4);
+                        var tex = Service.TextureProvider.GetIcon(icon);
+                        //var tex = Service.Interface.UiBuilder.LoadImageRaw(Service.TextureProvider.GetTexture(iconTex), iconTex.Width, iconTex.Height, 4);
                         if (tex != null && tex.ImGuiHandle != IntPtr.Zero)
                         {
                             textureDictionary[icon] = tex;

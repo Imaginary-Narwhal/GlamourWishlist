@@ -19,13 +19,13 @@ using System.Reflection;
 namespace GlamourWishlist;
 public sealed class Plugin : IDalamudPlugin
 {
-    public string Name => "GlamourWishlist";
+    public static string Name => "GlamourWishlist";
 
     internal Configuration Config { get; init; }
     
     public WindowSystem WindowSystem = new("GlamourWishlist");
 
-    private PluginCommandManager<Plugin> CommandManager { get; init; }
+    //private PluginCommandManager<Plugin> CommandManager { get; init; }
 
     public WishlistWindow MainWindow { get; init; }
     public QuickAddToWishlist QuickAdd { get; init; }
@@ -37,9 +37,11 @@ public sealed class Plugin : IDalamudPlugin
         Service.WishlistService = new(this);
         Service.ContextMenuService = new(this);
 
+        
+
         Service.ClientState.Login += ClientState_Login;
 
-        CommandManager = new(this, Service.CommandManager);
+        //CommandManager = new(this, Service.CommandManager);
 
         Config = Service.Interface.GetPluginConfig() as Configuration ?? new Configuration();
         if (Service.ClientState.LocalPlayer != null)
@@ -60,16 +62,21 @@ public sealed class Plugin : IDalamudPlugin
         Service.Items = Service.DataManager.GetExcelSheet<Item>()
             .Where(x => x.IsGlamourous && x.Name != string.Empty && x.RowId > 1600)
             .ToList();
+
+        Service.CommandManager.AddHandler("/pwl", new CommandInfo(WishlistCommand)
+        {
+            HelpMessage = "Open main wishlist window"
+        });
     }
 
-    private void ClientState_Login(object sender, System.EventArgs e)
+    private void ClientState_Login()
     {
         Config.Login(Service.ClientState.LocalPlayer.Name, Service.ClientState.LocalPlayer.HomeWorld.GameData.Name);
     }
 
     public void Dispose()
     {
-        CommandManager.Dispose();
+        //CommandManager.Dispose();
         WindowSystem.RemoveAllWindows();
         Service.Interface.UiBuilder.Draw -= DrawUI;
         Service.DrawService.textureDictionary.Clear();
@@ -82,9 +89,9 @@ public sealed class Plugin : IDalamudPlugin
         WindowSystem.Draw();
     }
 
-    [Command("/pwl")]
-    [HelpMessage("Open main wishlist window")]
-    public void WishlistCommand(string command, string arg)
+    //[Command("/pwl")]
+    //[HelpMessage("Open main wishlist window")]
+    public void WishlistCommand(string command, string args)
     {
         MainWindow.Toggle();
     }
