@@ -1,28 +1,24 @@
 using Dalamud.Game.Command;
-using Dalamud.Plugin.Services;
 using GlamourWishlist.Attributes;
+using GlamourWishlist.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using static Dalamud.Game.Command.CommandInfo;
 
 #nullable disable
 
 namespace GlamourWishlist.CommandHandler;
 
-/*
 public class PluginCommandManager<THost> : IDisposable
 {
-    private readonly ICommandManager commandManager;
+    //private readonly ICommandManager commandManager;
     private readonly (string, CommandInfo)[] pluginCommands;
     private readonly THost host;
 
-    public PluginCommandManager(THost host, ICommandManager commandManager)
+    public PluginCommandManager(THost host)
     {
-        this.commandManager = commandManager;
         this.host = host;
 
         this.pluginCommands = host.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance)
@@ -37,7 +33,7 @@ public class PluginCommandManager<THost> : IDisposable
     {
         foreach (var (command, commandInfo) in this.pluginCommands)
         {
-            this.commandManager.AddHandler(command, commandInfo);
+            Service.CommandManager.AddHandler(command, commandInfo);
         }
     }
 
@@ -45,7 +41,7 @@ public class PluginCommandManager<THost> : IDisposable
     {
         foreach (var (command, _) in this.pluginCommands)
         {
-            this.commandManager.RemoveHandler(command);
+            Service.CommandManager.RemoveHandler(command);
         }
     }
 
@@ -83,4 +79,3 @@ public class PluginCommandManager<THost> : IDisposable
         GC.SuppressFinalize(this);
     }
 }
-*/

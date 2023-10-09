@@ -1,12 +1,4 @@
-﻿using ImGuiNET;
-using Lumina.Excel.GeneratedSheets;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GlamourWishlist;
+﻿namespace GlamourWishlist;
 public static class Helper
 {
     public static uint Rarity(int r)

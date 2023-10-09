@@ -1,7 +1,6 @@
 ﻿using Dalamud.Interface;
 //using Dalamud.Interface.Raii;
 using Dalamud.Interface.Windowing;
-using FFXIVClientStructs.FFXIV.Client.UI.Info;
 using GlamourWishlist.Models;
 using GlamourWishlist.Services;
 using ImGuiNET;
@@ -9,11 +8,7 @@ using Lumina.Excel.GeneratedSheets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Numerics;
-using System.Runtime.InteropServices.ObjectiveC;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GlamourWishlist.Windows;
 public sealed class WishlistWindow : Window, IDisposable

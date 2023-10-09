@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GlamourWishlist.Services;
-using GlamourWishlist;
+﻿using System.Linq;
 using GlamourWishlist.Models;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace GlamourWishlist.Services;
 public class WishlistService

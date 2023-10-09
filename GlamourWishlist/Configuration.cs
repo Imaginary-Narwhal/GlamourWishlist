@@ -1,11 +1,9 @@
 ﻿using Dalamud.Configuration;
 using Dalamud.Plugin;
 using GlamourWishlist.Models;
-using GlamourWishlist.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 
 #nullable enable
 
