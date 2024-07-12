@@ -4,7 +4,7 @@
   "Punchline": "Create wish lists of items you want to glamour",
   "Description": "Create and manage lists of items that you want to save for glamouring later. Right-click context menus on items can be used to quickly add an item to a list.",
   "InternalName": "GlamourWishlist",
-  "AssemblyVersion": "1.0.0.2",
+  "AssemblyVersion": "1.0.0.3",
   "ApplicableVersion": "any",
   "RepoUrl": "https://github.com/Imaginary-Narwhal/GlamourWishlist",
   "Tags": [

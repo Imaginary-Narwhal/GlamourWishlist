@@ -17,11 +17,11 @@ public class Configuration : IPluginConfiguration
     public float ItemSeparatorSize = 150.0f;
 
     // the below exist just to make saving less cumbersome
-    [NonSerialized] private DalamudPluginInterface? PluginInterface;
+    [NonSerialized] private IDalamudPluginInterface? PluginInterface;
     [NonSerialized] public List<Wishlist> LocalWishlists = new();
     [NonSerialized] public Character CurrentCharacter = new();
 
-    public void Initialize(DalamudPluginInterface pluginInterface, Dalamud.Game.Text.SeStringHandling.SeString name, Lumina.Text.SeString world)
+    public void Initialize(IDalamudPluginInterface pluginInterface, Dalamud.Game.Text.SeStringHandling.SeString name, Lumina.Text.SeString world)
     {
         this.PluginInterface = pluginInterface;
         Login(name, world);

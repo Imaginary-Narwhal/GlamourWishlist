@@ -23,12 +23,12 @@ public sealed class Plugin : IDalamudPlugin
     public WishlistWindow MainWindow { get; init; }
     public QuickAddToWishlist QuickAdd { get; init; }
 
-    public Plugin(DalamudPluginInterface _pluginInterface)
+    public Plugin(IDalamudPluginInterface _pluginInterface)
     {
         Service.Initialize(_pluginInterface);
         Service.DrawService = new();
         Service.WishlistService = new(this);
-        Service.ContextMenuService = new(this);
+        //Service.ContextMenuService = new(this);
 
         
 
@@ -69,7 +69,7 @@ public sealed class Plugin : IDalamudPlugin
         Service.Interface.UiBuilder.Draw -= DrawUI;
         Service.DrawService.textureDictionary.Clear();
 
-        Service.ContextMenuService.Dispose();
+        //Service.ContextMenuService.Dispose();
     }
 
     private void DrawUI()

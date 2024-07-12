@@ -1,4 +1,4 @@
-﻿using Dalamud.ContextMenu;
+﻿/*using Dalamud.ContextMenu;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
 using FFXIVClientStructs.FFXIV.Client.UI;
@@ -141,4 +141,4 @@ public class ContextMenuService
         contextMenu.OnOpenGameObjectContextMenu -= OpenObjectContextMenu;
         contextMenu.Dispose();
     }
-}
+}*/

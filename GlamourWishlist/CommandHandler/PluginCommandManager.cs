@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using static Dalamud.Game.Command.CommandInfo;
 
 #nullable disable
 
@@ -47,7 +46,7 @@ public class PluginCommandManager<THost> : IDisposable
 
     private IEnumerable<(string, CommandInfo)> GetCommandInfoTuple(MethodInfo method)
     {
-        var handlerDelegate = (HandlerDelegate)Delegate.CreateDelegate(typeof(HandlerDelegate), this.host, method);
+        var handlerDelegate = (IReadOnlyCommandInfo.HandlerDelegate)Delegate.CreateDelegate(typeof(IReadOnlyCommandInfo.HandlerDelegate), this.host, method);
 
         var command = handlerDelegate.Method.GetCustomAttribute<CommandAttribute>();
         var aliases = handlerDelegate.Method.GetCustomAttribute<AliasesAttribute>();
